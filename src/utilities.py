@@ -1,7 +1,7 @@
 from __future__ import division
 import os
 import numpy as np
-from sklearn import (metrics, cross_validation, linear_model, preprocessing)
+from sklearn import (metrics, cross_validation, preprocessing)
 
 # Import this module like so:
 # from utilities import load_data, save_results

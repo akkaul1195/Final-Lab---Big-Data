@@ -19,8 +19,6 @@ from sklearn import (metrics, cross_validation, linear_model, preprocessing)
 SEED = 42  # always use a seed for randomized procedures
 
 
-
-
 def main():
     """
     Fit models and make predictions.
@@ -32,7 +30,6 @@ def main():
 
     # === load data in memory === #
     print "loading data"
-
 
     cwd = os.getcwd()
     trainDataLoc = cwd + '/../data/train.csv'
