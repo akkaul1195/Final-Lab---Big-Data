@@ -7,6 +7,7 @@ from sklearn import svm
 from sklearn.cross_validation import train_test_split
 from utilities import load_data, save_results
 from sklearn import (metrics, cross_validation, preprocessing)
+from sklearn.grid_search import GridSearchCV
 
 SEED = 23
 
@@ -25,9 +26,11 @@ def main():
     X_test = encoder.transform(X_test)
     
     X_train, X_cv, y_train, y_cv = cross_validation.train_test_split(X, y, test_size=.20, random_state=SEED)
+    
+    model = findBestModel()
 
-
-    model = svm.SVC(C=1, probability=True, kernel='linear')
+    """
+    model = svm.SVC(C=1, probability=True, kernel='rbf')
     model.fit(X_train, y_train)
     preds = model.predict_proba(X_cv)[:, 1]
 
@@ -35,13 +38,32 @@ def main():
     fpr, tpr, thresholds = metrics.roc_curve(y_cv, preds)
     roc_auc = metrics.auc(fpr, tpr)
     print "AUC : %f" % (roc_auc)
-
+    """
+    
     preds = model.predict_proba(X_test)[:, 1]
 
     save_results(preds, "SVM_classifier.csv")
 
 
-
-
 if __name__ == '__main__':
     main()
+
+def findBestModel():
+	
+	#Testing each param change independently instead
+	test_params = [{'kernel': ['linear'], 'C': [.01, 1, 10, 100, 1000], 'probability'=True},
+					{'kernel': ['rbf'], 'C': [.01, 1, 10, 100, 1000] 'gamma': [.0001, .01, 1], 'probability'=True}]
+
+	#3 fold cross validation
+	svmGS = GridSearchCV(svm.SVC(), very_quick_params, n_jobs=8, cv=3, scoring=aucScore)
+
+	print 'These were the best params found: ' + str(svmGS.best_params_)
+	print 'They received a score of: ' + str(svmGS.best_score_)
+
+	return svmGS.best_estimator_
+
+def aucScore(model, x, y):
+	preds = model.predict_proba(x)[:, 1]
+    fpr, tpr, thresholds = metrics.roc_curve(y, preds)
+    roc_auc = metrics.auc(fpr, tpr)
+    return roc_auc
