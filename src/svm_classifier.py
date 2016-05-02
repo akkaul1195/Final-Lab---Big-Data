@@ -36,6 +36,8 @@ def main():
     roc_auc = metrics.auc(fpr, tpr)
     print "AUC : %f" % (roc_auc)
 
+    preds = model.predict_proba(X_test)[:, 1]
+
     save_results(preds, "SVM_classifier.csv")
 
 
