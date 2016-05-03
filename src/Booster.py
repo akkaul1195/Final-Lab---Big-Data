@@ -8,8 +8,8 @@ from sklearn import (metrics, cross_validation, preprocessing)
 from utilities import load_data, save_results
 
 
-####	http://scikit-learn.org/stable/modules/generated/sklearn.ensemble.AdaBoostClassifier.html
-####	This is the URL for the parameters for AdaBoost Classifier
+####    http://scikit-learn.org/stable/modules/generated/sklearn.ensemble.AdaBoostClassifier.html
+####    This is the URL for the parameters for AdaBoost Classifier
 
 def create_test_submission(filename, prediction):
     content = ['id,ACTION']
@@ -34,7 +34,7 @@ X = encoder.transform(X)  # Returns a sparse matrix (see numpy.sparse)
 X_test = encoder.transform(X_test)
 
 print("about to classify")
-clf = AdaBoostClassifier(base_estimator=None, n_estimators=1000, learning_rate=1.75)
+clf = AdaBoostClassifier(base_estimator=None, n_estimators=900, learning_rate=1.8)
 scores = clf.fit(X, y)
     # """
     # X_train, X_cv, y_train, y_cv = cross_validation.train_test_split(X, y, test_size=.20, random_state=SEED)
