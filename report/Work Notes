@@ -4,4 +4,4 @@ Started with logistic regression starter code
 Added SVM Classifier
 Working on tuning SVM classifier
 Need to tune logistic regression
-Need to add (weighted?)ranking ensemble function
+Adding Ensembling Capabilities
