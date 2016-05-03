@@ -19,9 +19,17 @@ def aucScore(model, x, y):
 
 def findBestModel(x,y):
 	
+
+#These were the best params found: {'kernel': 'rbf', 'C': 1, 'random_state': 23, 'probability': True, 'gamma': 1}
+#They received an auc score of: 0.860507309069
+
+
 	#Testing each param change independently instead
-	params = [{'kernel': ['linear'], 'C': [.01, 1, 10, 100, 1000], 'probability': [True], 'random_state': [SEED]},
-					{'kernel': ['rbf'], 'C': [.01, 1, 10, 100, 1000], 'gamma': [.0001, .01, 1], 'probability': [True], 'random_state': [SEED]}]
+	#params = [{'kernel': ['linear'], 'C': [.01, 1, 10, 100, 1000], 'probability': [True], 'random_state': [SEED]},
+	#				{'kernel': ['rbf'], 'C': [.01, 1, 10, 100, 1000], 'gamma': [.0001, .01, 1], 'probability': [True], 'random_state': [SEED]}]
+
+	params = [{'kernel': ['rbf'], 'C': [1], 'gamma': [1, 10, 100], 'probability': [True], 'random_state': [SEED]}]
+
 
 	#3 fold cross validation
 	svmGS = GridSearchCV(svm.SVC(), params, n_jobs=8, cv=3, scoring=aucScore)
