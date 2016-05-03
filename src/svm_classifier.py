@@ -24,12 +24,9 @@ def findBestModel(x,y):
 #They received an auc score of: 0.860507309069
 
 
-	#Testing each param change independently instead
-	#params = [{'kernel': ['linear'], 'C': [.01, 1, 10, 100, 1000], 'probability': [True], 'random_state': [SEED]},
-	#				{'kernel': ['rbf'], 'C': [.01, 1, 10, 100, 1000], 'gamma': [.0001, .01, 1], 'probability': [True], 'random_state': [SEED]}]
-
-	params = [{'kernel': ['rbf'], 'C': [1], 'gamma': [1, 10, 100], 'probability': [True], 'random_state': [SEED]}]
-
+	#Testing each param 
+	params = [{'kernel': ['linear'], 'C': [.01, 1, 10, 100, 1000], 'probability': [True], 'random_state': [SEED]},
+					{'kernel': ['rbf'], 'C': [.01, 1, 10, 100, 1000], 'gamma': [.0001, .01, 1], 'probability': [True], 'random_state': [SEED]}]
 
 	#3 fold cross validation
 	svmGS = GridSearchCV(svm.SVC(), params, n_jobs=8, cv=3, scoring=aucScore)
@@ -55,11 +52,11 @@ def main():
     X_test = encoder.transform(X_test)
     
 
-    model = findBestModel(X, y)
-    """
+    #model = findBestModel(X, y) Best model is rbf, gamma = 1, c = 1
+    
     X_train, X_cv, y_train, y_cv = cross_validation.train_test_split(X, y, test_size=.20, random_state=SEED)
     
-    model = svm.SVC(C=1, probability=True, kernel='rbf')
+    model = svm.SVC(C=1, probability=True, kernel='rbf', gamma=1)
     model.fit(X_train, y_train)
     preds = model.predict_proba(X_cv)[:, 1]
 
@@ -67,7 +64,7 @@ def main():
     fpr, tpr, thresholds = metrics.roc_curve(y_cv, preds)
     roc_auc = metrics.auc(fpr, tpr)
     print "AUC : %f" % (roc_auc)
-    """
+   
 
     preds = model.predict_proba(X_test)[:, 1]
 
