@@ -51,7 +51,7 @@ scores = clf.fit(X, y)
 
 prediction = scores.predict_proba(X_test)[:, 1]
 
-create_test_submission('output.csv', prediction)
+save_results(predictions,'AdaBoost_output.csv')
 print ("done")
 
 
