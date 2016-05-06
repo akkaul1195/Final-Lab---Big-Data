@@ -5,17 +5,11 @@ import sys, os
 import numpy as np
 from sklearn import svm
 from sklearn.cross_validation import train_test_split
-from utilities import load_data, save_results
+from utilities import load_data, save_results, aucScore
 from sklearn import (metrics, cross_validation, preprocessing)
 from sklearn.grid_search import GridSearchCV
 
 SEED = 23
-
-def aucScore(model, x, y):
-	preds = model.predict_proba(x)[:, 1]
-	fpr, tpr, thresholds = metrics.roc_curve(y, preds)
-	roc_auc = metrics.auc(fpr, tpr)
-	return roc_auc
 
 def findBestModel(x,y):
 	

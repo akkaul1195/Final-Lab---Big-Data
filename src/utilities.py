@@ -34,3 +34,11 @@ def save_results(predictions, filename):
         f.write("id,ACTION\n")
         for i, pred in enumerate(predictions):
             f.write("%d,%f\n" % (i + 1, pred))
+
+
+# For use as scoring parameter for gridsearchcv
+def aucScore(model, x, y): 
+    preds = model.predict_proba(x)[:, 1]
+    fpr, tpr, thresholds = metrics.roc_curve(y, preds)
+    roc_auc = metrics.auc(fpr, tpr)
+    return roc_auc

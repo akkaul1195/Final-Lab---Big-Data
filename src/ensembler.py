@@ -9,7 +9,7 @@ from utilities import load_data, save_results
 numItems = 58921
 
 def main():
-	filesToEnsemble = ['SVM_classifier.csv', 'LogisticRegressionResults.csv', 'output.csv', 'logistic_regression_pred.csv']#, 'sampleSubmission.csv']
+	filesToEnsemble = ['SVM_classifier.csv', 'output.csv', 'XGBoost_classifier.csv']#, 'LogisticRegressionResults.csv','logistic_regression_pred.csv']#, 'sampleSubmission.csv']
 	fdata = []
 	itemSum = []
 	for i in range(numItems):

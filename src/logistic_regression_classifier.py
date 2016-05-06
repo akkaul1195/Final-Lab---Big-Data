@@ -1,3 +1,5 @@
+#! /usr/bin/python
+
 """ Amazon Access Challenge Starter Code
 
 These files provide some starter code using 
@@ -13,10 +15,27 @@ Paul Duan <email@paulduan.com>
 from __future__ import division
 import os
 import numpy as np
-from utilities import load_data, save_results
+from utilities import load_data, save_results, aucScore
 from sklearn import (metrics, cross_validation, linear_model, preprocessing)
 
 SEED = 42  # always use a seed for randomized procedures
+
+def findBestModel(x,y):
+    
+#These were the best params found:
+#They received an auc score of:
+
+
+    #Testing each param 
+    params = []
+
+    #3 fold cross validation
+    svmGS = GridSearchCV(linear_model.LogisticRegression(), params, n_jobs=-1, cv=3, scoring=aucScore)
+    svmGS.fit(x, y)
+    print 'These were the best params found: ' + str(svmGS.best_params_)
+    print 'They received an auc score of: ' + str(svmGS.best_score_)
+
+    return svmGS.best_estimator_
 
 
 def main():
